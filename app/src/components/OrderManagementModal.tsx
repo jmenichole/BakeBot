@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { createBrowserClient } from '@/lib/supabase';
-import { X, Calendar, Mail, Phone, DollarSign, Package, Trash2, Edit2, CheckCircle2, XCircle } from 'lucide-react';
+import { X, Calendar, Mail, Phone, DollarSign, Package, Trash2, Edit2, CheckCircle2, XCircle, CreditCard } from 'lucide-react';
+import { StripeCheckoutButton } from '@/components/StripeCheckoutButton';
 import Image from 'next/image';
 import { toast } from '@/hooks/useToast';
 
@@ -257,6 +258,15 @@ export function OrderManagementModal({ order, isOpen, onClose, onUpdate }: Order
             </>
           ) : (
             <>
+              {!order.is_paid && (
+                <StripeCheckoutButton
+                  checkoutType="order"
+                  orderId={order.id}
+                  className="flex-1 btn btn-primary py-3 flex items-center justify-center gap-2"
+                >
+                  <CreditCard className="w-4 h-4" /> Collect Payment
+                </StripeCheckoutButton>
+              )}
               <button
                 onClick={() => {
                   setIsEditing(true);

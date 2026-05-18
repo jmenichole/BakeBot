@@ -376,7 +376,7 @@ export default function NewDesignPage() {
             configuration_data: config,
             estimated_price: finalPrice,
             is_draft: !isFinal,
-            is_public: false,
+            is_public: isFinal,
           })
           .eq('id', savedDesignId)
           .eq('baker_id', user.id)
@@ -396,7 +396,7 @@ export default function NewDesignPage() {
             configuration_data: config,
             estimated_price: finalPrice,
             is_draft: !isFinal,
-            is_public: false,
+            is_public: isFinal,
           })
           .select('id')
           .single();
@@ -449,6 +449,12 @@ export default function NewDesignPage() {
         });
 
       if (orderError) throw orderError;
+
+      await supabase
+        .from('cake_designs')
+        .update({ is_public: true, is_draft: false })
+        .eq('id', savedDesignId)
+        .eq('baker_id', user.id);
 
       // Send quote email to customer via Resend (best-effort: failure doesn't block flow)
       try {

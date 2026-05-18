@@ -88,9 +88,7 @@ export default function PricingPage() {
               ))}
             </ul>
             <a
-              href="https://ko-fi.com/s/e962d231c7"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/api/auth/grant-access?plan=monthly"
               className="block text-center py-4 px-6 rounded-xl border-2 border-primary text-primary font-bold hover:bg-pink-50 transition-colors"
             >
               Subscribe Now
@@ -126,9 +124,7 @@ export default function PricingPage() {
               ))}
             </ul>
             <a
-              href="https://ko-fi.com/s/b8ebf64289"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/api/auth/grant-access?plan=lifetime"
               className="block text-center py-4 px-6 rounded-xl bg-primary text-white font-bold hover:bg-pink-600 transition-colors shadow-lg shadow-pink-200"
             >
               Get Lifetime Access

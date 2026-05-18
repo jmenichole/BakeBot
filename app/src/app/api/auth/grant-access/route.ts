@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { createBakerPlanCheckout, type BakerPlan } from "@/lib/stripe-checkout";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -41,23 +42,20 @@ export async function GET(request: NextRequest) {
   }
 
   if (plan === "monthly" || plan === "lifetime") {
-    const { error } = await supabase
-      .from("bakers")
-      .update({
-        is_premium: true,
-        plan_type: plan,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", user.id);
-
-    if (error) {
-      console.error("Error granting access:", error);
-      return NextResponse.redirect(
-        new URL("/dashboard?error=activation_failed", request.url)
+    try {
+      const session = await createBakerPlanCheckout(
+        user.id,
+        plan as BakerPlan,
+        user.email
       );
+      if (session.url) {
+        return NextResponse.redirect(session.url);
+      }
+    } catch (err) {
+      console.error("Stripe checkout redirect failed:", err);
     }
     return NextResponse.redirect(
-      new URL("/dashboard?success=plan_activated", request.url)
+      new URL("/pricing?error=checkout_unavailable", request.url)
     );
   }
 

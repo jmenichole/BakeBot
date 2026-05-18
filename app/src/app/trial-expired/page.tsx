@@ -35,8 +35,10 @@ export default function TrialExpiredPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="btn btn-primary py-4 px-10 text-lg">Notify Me on Launch</button>
-          <Link href="/" className="btn btn-secondary py-4 px-10 text-lg">Back to Home</Link>
+          <a href="/api/auth/grant-access?plan=monthly" className="btn btn-primary py-4 px-10 text-lg text-center">
+            Upgrade with Stripe
+          </a>
+          <Link href="/pricing" className="btn btn-secondary py-4 px-10 text-lg text-center">View Plans</Link>
         </div>
         
         <p className="mt-8 text-sm text-gray-400">

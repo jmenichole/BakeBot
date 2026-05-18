@@ -21,6 +21,8 @@ const PUBLIC_API_ROUTES = new Set([
   "/api/traction-report",
   "/api/track-referral",
   "/api/order-action",
+  "/api/stripe/webhook",
+  "/api/auth/grant-access",
 ]);
 
 const PUBLIC_DYNAMIC_API_ROUTES = ["/api/order-tracking/"];
