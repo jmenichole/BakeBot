@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "npm install --prefix app",
+  "buildCommand": "npm run build --prefix app",
+  "outputDirectory": "app/.next",
+  "crons": [
+    {
+      "path": "/api/traction-report",
+      "schedule": "0 0 1 * *"
+    }
+  ]
+}
